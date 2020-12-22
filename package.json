@@ -10,10 +10,13 @@
   "dependencies": {
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
+    "qrcodejs2": "0.0.2",
     "swiper": "^5.4.5",
+    "view-design": "^4.4.0",
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.1",
-    "vue-router": "^3.2.0"
+    "vue-baidu-map": "^0.21.22",
+    "vue-router": "^3.0.7"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.0",

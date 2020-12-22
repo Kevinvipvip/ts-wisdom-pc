@@ -12,11 +12,9 @@ ul, li {
   list-style: none;
 }
 
-.page {
-  min-height: 100vh;
-  //min-height: calc(100vh - 450px - 98px);
-  //margin-top: 98px;
-  background-color: rgb(239, 239, 239);
+body {
+  overflow-y: scroll;
+  font-size: 16px;
 }
 
 img {
@@ -24,8 +22,17 @@ img {
   display: block;
 }
 
+.page {
+  min-height: calc(100vh - 300px);
+  background-image: url('../assets/bg-page.png');
+  overflow: hidden;
+}
+
+
 .white { //白色背景
   background-color: #ffffff;
+  width: 1200px;
+  margin: 0 auto;
   //box-shadow: 0 5px 10px 0 rgba(179, 129, 70, 0.35);
 }
 
@@ -35,35 +42,28 @@ img {
 
 //公共的title样式
 .title {
-  font-size: 37px;
-  color: #333333;
-  height: 80px;
-  line-height: 80px;
-  text-align: center;
-  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  margin: 36px 0;
+
+  &.m-20 {
+    margin: 20px auto;
+  }
+
+  h3 {
+    padding: 0 45px;
+    font-weight: normal;
+    font-size: 30px;
+    color: #333333;
+    background-image: url("../assets/bg-title-left.png"), url("../assets/bg-title-right.png");
+    background-repeat: no-repeat;
+    background-position: left, right;
+    background-size: 21px 30px;
+  }
 }
 
-//门票预约公共title
-.common-title {
-  height: 88px;
-  width: 100%;
-  text-align: center;
-  line-height: 88px;
-  background-color: #b38146;
-  color: #ffffff;
-  font-size: 34px;
-}
-
-/*banner样式*/
-//.banner {
-//  background-color: rgb(80, 168, 236);
-//  height: 88px;
-//  display: flex;
-//  align-items: center;
-//  justify-content: center;
-//  color: rgba(255, 255, 255, 0.6);
-//  font-size: 26px;
-//}
 
 /* 超出省略 start */
 .one-line-ellipsis {
@@ -85,12 +85,68 @@ img {
 
 /* 超出省略 end */
 
+
+//分页公共样式
+.my-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 46px 0 10px;
+
+  /deep/ .ivu-page-prev {
+    border: none;
+    background: url("../assets/icon-page-left.png");
+    background-position: center;
+    background-repeat: no-repeat;
+
+    .ivu-icon-ios-arrow-back:before {
+      content: none;
+    }
+
+    &.ivu-page-disabled {
+      background-image: url("../assets/icon-page-duck-left.png");
+    }
+  }
+
+  /deep/ .ivu-page-item-active, .ivu-page-item:hover {
+    border-color: #cf903a;
+
+    a {
+      color: #cf903a;
+    }
+  }
+
+  /deep/ .ivu-page-item:hover a {
+    color: #cf903a;
+
+  }
+
+  /deep/ .ivu-page-next {
+    border: none;
+    background: url("../assets/icon-arrows-default.png");
+    background-position: center;
+    background-repeat: no-repeat;
+
+    .ivu-icon-ios-arrow-forward:before {
+      content: none;
+    }
+
+    &.ivu-page-disabled {
+      background-image: url("../assets/icon-page-duck-right.png");
+    }
+  }
+}
+
 //没有数据
 .nodata {
   margin-top: 50px;
-  font-size: 26px;
-  color: #999;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+
+  span {
+    font-size: 16px;
+    color: #666666;
+  }
 }
 
 //禁止点击按钮
@@ -100,7 +156,7 @@ img {
 
 //遮罩
 .mask {
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(207, 144, 58, 0.8);
   position: fixed;
   top: 0;
   left: 0;
@@ -111,12 +167,413 @@ img {
   justify-content: center;
   align-items: center;
   transition: 0.5s;
+
+  .mask-cont {
+    position: relative;
+
+    .bg {
+      margin-top: 0;
+    }
+
+    .close {
+      z-index: 9;
+      cursor: pointer;
+      position: absolute;
+      right: 44px;
+      top: 44px;
+      width: 37px;
+      height: 37px;
+    }
+  }
 }
 
-.mask-cont {
-  position: relative;
-  background-color: #ffffff;
-  min-width: 80vw;
-  min-height: 80vh;
-  border-radius: 20px;
+//查看大图遮罩显示
+.img-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .img-mask-cont {
+    //overflow-y: scroll;
+    overflow: auto;
+    max-width: 100%;
+    max-height: 100%;
+
+    img {
+      width: auto;
+    }
+  }
+}
+
+//搜索内容列表样式和相应的列表样式
+.collect-cont { //藏品列表样式
+  margin-top: 60px;
+  display: flex;
+
+  ul {
+    width: calc(25% - 18px);
+    margin-right: 24px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    li {
+      background-color: #ffffff;
+      border: solid 1px #d6d6d6;
+      margin-bottom: 24px;
+      cursor: pointer;
+      transition: 1s;
+
+      .img {
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center;
+      }
+
+      .item-cont {
+        padding: 13px 13px 23px;
+
+        h3 {
+          font-size: 16px;
+          color: #666666;
+          font-weight: normal;
+          margin-bottom: 24px;
+        }
+
+        p {
+          font-size: 14px;
+          color: #999999;
+          padding-right: 15px;
+          background-image: url("../assets/icon-arrows-default.png");
+          background-position: right center;
+          background-size: 10px 14px;
+          background-repeat: no-repeat;
+        }
+      }
+
+      &:hover {
+        background-color: #cf903a;
+
+        .item-cont {
+          h3 {
+            color: #ffffff;
+          }
+
+          p {
+            color: #ffffff;
+            background-image: url("../assets/icon-arrows-selected.png");
+          }
+        }
+      }
+    }
+  }
+}
+
+.temp-list { //临时展览和搜索页展览列表样式
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+
+  li {
+    width: calc(33.3333% - 16px);
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    margin-right: 24px;
+    margin-top: 24px;
+    cursor: pointer;
+
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+
+    &:nth-child(-n+3) {
+      margin-top: 0;
+    }
+
+    .img {
+      position: relative;
+      width: 100%;
+      height: 240px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+      .type {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 14px;
+        color: #ffffff;
+        padding: 5px 10px;
+        background-color: #cf903a;
+        border-radius: 4px;
+
+        &.bg1 {
+          background-color: #29ac83;
+        }
+      }
+    }
+
+    .item-cont {
+      h3 {
+        font-size: 20px;
+        font-weight: normal;
+        color: #333333;
+        margin: 20px;
+        text-align: justify;
+      }
+
+      p {
+        margin: 24px 20px;
+        font-size: 14px;
+        color: #666666;
+        padding-right: 15px;
+        box-sizing: border-box;
+        background-image: url("../assets/icon-arrows-default.png");
+        background-repeat: no-repeat;
+        background-position: right;
+        background-size: 10px 14px;
+      }
+    }
+
+    &:hover {
+      background-color: #cf903a;
+
+      .item-cont {
+        h3 {
+          color: #ffffff;
+        }
+
+        p {
+          color: #ffffff;
+          background-image: url("../assets/icon-arrows-selected.png");
+        }
+      }
+    }
+  }
+}
+
+.active {//预约活动和搜索页活动列表样式
+  margin: 40px 0;
+  display: flex;
+  flex-wrap: wrap;
+
+  .item {
+    width: calc(33.33333% - 16px);
+    margin-bottom: 24px;
+    margin-right: 24px;
+    background-color: #ffffff;
+    border: solid 1px #cccccc;
+    cursor: pointer;
+
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+
+    .img {
+      width: 100%;
+      height: 240px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .item-cont {
+      margin: 20px 20px 15px;
+
+      h3 {
+        font-size: 20px;
+        text-align: justify;
+        font-weight: normal;
+        color: #333333;
+        margin-bottom: 20px;
+      }
+
+      .p-box {
+        padding-right: 15px;
+        box-sizing: border-box;
+        background-image: url("../assets/icon-arrows-default.png");
+        background-size: 10px 14px;
+        background-position: right 24px;
+        background-repeat: no-repeat;
+
+        p {
+          font-size: 14px;
+          color: #666666;
+        }
+      }
+    }
+
+    &:hover {
+      background-color: #cf903a;
+
+      .item-cont {
+        h3 {
+          color: #ffffff;
+        }
+
+        .p-box {
+          transition: 0.5s;
+          background-position: right 4px;
+          background-image: url("../assets/icon-arrows-selected.png");
+
+          p {
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+}
+
+.news-list {//新闻页面和搜索页新闻列表样式
+  margin-top: 40px;
+  ul {
+    li {
+      height: 208px;
+      position: relative;
+      cursor: pointer;
+
+      .bg-new-box {
+        position: absolute;
+        z-index: 1;
+        opacity: 0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: 1s;
+        background-image: url("../assets/bg-news-list-selected.png");
+        /*background-color: #b38146;*/
+        background-repeat: no-repeat;
+        background-position: right;
+        background-size: 100%;
+      }
+
+      &:hover {
+        .bg-new-box {
+          opacity: 1;
+        }
+
+        .li-item {
+          .new-cont {
+            color: #ffffff;
+
+            h3 {
+              color: #ffffff;
+            }
+
+            p {
+              color: #ffffff;
+            }
+
+            .btn {
+              color: #ffffff;
+
+              &:after {
+                background-image: url("../assets/icon-arrows-selected.png");
+              }
+            }
+          }
+        }
+      }
+
+      .li-item {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        border-bottom: solid 1px #e8e2ca;
+
+        .img {
+          margin: 24px;
+          width: 240px;
+          height: 160px;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          flex-shrink: 0;
+          position: relative;
+
+          .type {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 10px;
+            background-color: #cf903a;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #ffffff;
+
+            &.bg2 {
+              background-color: #a5a59f;
+            }
+
+            &.bg3 {
+              background-color: #29ac83;
+            }
+
+            &.bg4 {
+              background-color: #f56f40;
+            }
+          }
+        }
+
+        .new-cont {
+          flex-grow: 1;
+          width: calc(100% - 300px);
+          margin-right: 24px;
+
+          h3 {
+            font-weight: normal;
+            font-size: 20px;
+            color: #333333;
+          }
+
+          p {
+            font-size: 14px;
+            color: #999999;
+            line-height: 20px;
+            text-align: justify;
+
+            &.date {
+              margin: 18px 0;
+            }
+          }
+
+          .btn {
+            font-size: 14px;
+            color: #333333;
+            margin-top: 18px;
+            display: flex;
+            align-items: center;
+
+            &:after {
+              content: '';
+              margin-left: 6px;
+              width: 10px;
+              height: 14px;
+              display: block;
+              background-image: url("../assets/icon-arrows-default.png");
+              background-position: center;
+              background-size: 100%;
+              background-repeat: no-repeat;
+            }
+          }
+        }
+      }
+    }
+  }
 }

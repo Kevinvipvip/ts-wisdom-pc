@@ -2,7 +2,7 @@
 node_modules
 /dist
 /pc
-
+secret.js
 
 # local env files
 .env.local
