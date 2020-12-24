@@ -1,6 +1,7 @@
 <template>
-  <div class="header">
-    <div class="img"><img src="../assets/logo-header.png" alt=""></div>
+  <div class="header" :class="click_on===1?'bg-white':''">
+    <div class="img"><img :src="click_on===1?require('../assets/logo-header.png'):require('../assets/logo.png')" alt="">
+    </div>
     <ul>
       <li v-for="(item,index) in nav" :key="'nav'+index" :class="click_on===item.id?'on':''"
           @click="click_nav(item.id,item.url)"
@@ -19,7 +20,7 @@
 
       </li>
     </ul>
-    <div class="search" @click.stop="click_show_search">
+    <div class="search" @click.stop="click_show_search" :style="show_search?'background-color: unset;':''">
       <div class="icon-left"><img src="../assets/icon-tip-left.png"/></div>
       <div class="icon"><img src="../assets/icon-search.png"/></div>
     </div>
@@ -246,10 +247,37 @@
     right: 0;
     z-index: 99;
     height: 80px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    &.bg-white {
+      background-color: rgba(0, 0, 0, 0.5);
+
+      .img {
+        &:after {
+          background-color: #ffffff;
+        }
+      }
+
+      ul {
+        li {
+          a {
+            color: #ffffff;
+          }
+        }
+      }
+
+      .search {
+        background-color: unset;
+        transition: 0.5s;
+
+        &:hover {
+          background-color: #cf903a;
+        }
+      }
+    }
 
     .s-nav-bg {
       background-color: rgba(207, 144, 58, 0.8);
@@ -283,7 +311,7 @@
         width: 1px;
         height: 40px;
         transform: translateY(-50%);
-        background-color: #ffffff;
+        background-color: #cf903a;
       }
 
       img {
@@ -309,7 +337,7 @@
         a {
           font-size: 14px;
           user-select: none;
-          color: #ffffff;
+          color: #666666;
         }
 
         .s-nav {
@@ -363,6 +391,8 @@
       width: 120px;
       height: 100%;
       border-left: 1px solid #ffffff;
+      background-color: #cf903a;
+      transition: 0.5s;
       cursor: pointer;
 
       .icon-left {
@@ -374,10 +404,6 @@
       .icon {
         width: 18px;
         height: 17px;
-      }
-
-      &:hover {
-        background-color: #cf903a;
       }
     }
 
@@ -481,6 +507,7 @@
 
       &.show-search {
         width: 400px;
+        border: solid 1px #cf903a;
         overflow: unset;
       }
     }

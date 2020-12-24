@@ -42,17 +42,17 @@
       </div>
       <div class="fixed-item">
         <div class="icon"><img src="../assets/fixed/icon-tiktok.png"/></div>
-        <div class="line"><i></i><i></i></div>
+        <div class="line one"><i></i></div>
         <div class="code"><img src="../assets/fixed/img-tiktok.png"/></div>
       </div>
-      <div class="fixed-item ">
-        <div class="icon"><img src="../assets/fixed/icon-share.png"/></div>
-        <div class="line one"><i></i></div>
-        <!--<div class="share-box">-->
-        <!--<div class="share-icon"><img src="../assets/wechat.png"/></div>-->
-        <!--<div class="share-icon"><img src="../assets/qq.png"/></div>-->
-        <!--</div>-->
-      </div>
+      <!--<div class="fixed-item ">-->
+        <!--<div class="icon"><img src="../assets/fixed/icon-share.png"/></div>-->
+        <!--<div class="line one"><i></i></div>-->
+        <!--&lt;!&ndash;<div class="share-box">&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="share-icon"><img src="../assets/wechat.png"/></div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="share-icon"><img src="../assets/qq.png"/></div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--</div>-->
       <div class="fixed-item" @click="return_top">
         <div class="icon"><img src="../assets/fixed/icon-top.png"/></div>
       </div>
