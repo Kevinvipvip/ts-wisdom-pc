@@ -28,6 +28,11 @@ import Crumb from './components/Crumb'
 Vue.component('background', Bg);
 Vue.component('crumb', Crumb);
 
+// 动画样式插件引入
+import animated from 'animate.css'
+
+Vue.use(animated);
+
 new Vue({
   router,
   render: h => h(App)

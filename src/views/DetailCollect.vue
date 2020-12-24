@@ -44,9 +44,15 @@
             </div>
             <div class="share">
               <p>分享至：</p>
-              <div class="share-icon"><img src="../assets/wechat.png"/></div>
-              <div class="share-icon"><img src="../assets/qq.png"/></div>
-              <div class="share-icon"><img src="../assets/sina.png"/></div>
+              <div class="share-icon" @click.stop="share(1,'微信')"><img src="../assets/wechat.png"/></div>
+              <div class="share-icon" @click.stop="share(3,'QQ')"><img src="../assets/qq.png"/></div>
+              <div class="share-icon" @click="share(2)"><img src="../assets/sina.png"/></div>
+              <div class="create-share-code" @click.stop :class="show_share?'show-share':''">
+                <span>分享至{{share_title}}</span>
+                <div class="code" ref="qrCode"></div>
+                <span>打开{{share_title}}，点击右上角加号</span>
+                <span>使用扫一扫进入手机版网页即可分享</span>
+              </div>
             </div>
           </div>
         </div>
@@ -110,7 +116,7 @@
         from_type: 0,//来源页面：1为典藏文物页；2为展览详情页
         from_query: {},
 
-        detail: { pics: [],relation_list:[] },//文物详情
+        detail: { pics: [], relation_list: [] },//文物详情
         active_index: 0,//当前轮播图的索引值
         collect_swiper: {
           navigation: {
@@ -132,6 +138,8 @@
         img_mask: false,
         look_img_url: '',
 
+        share_title: '',
+        show_share: false,
       };
     },
     // 跳转本页时参数变化后重新调取新闻公告详情数据
@@ -149,10 +157,16 @@
         this.from_query = JSON.parse(this.$route.query.query);
       }
       this.getCollectDetail();
+      this.utils.initCode(this);
+      window.addEventListener('click', () => {
+        this.show_share = false;
+      });
     },
     destroyed() {
       window.clearTimeout(this.timeout);
       this.utils.move();
+      window.removeEventListener('click', () => {
+      }, false);
     },
     methods: {
       // 点击查看全部简介
@@ -164,6 +178,19 @@
       close_mask() {
         this.show_mask = false;
         this.utils.move();
+      },
+
+      // 分享
+      share(type, title) {
+        if (type === 2) {
+          var sharesinastring = 'http://v.t.sina.com.cn/share/share.php?title=' + this.detail.title + '&url=' + window.location.href + '&content=utf-8&sourceUrl=' + this.detail.desc + '&pic=' + this.detail.pic;
+          window.open(sharesinastring);
+        } else {
+          this.share_title = title;
+          this.show_share = true;
+          this.qrcode.clear();
+          this.qrcode.makeCode(this.config.url + 'wap/#/collect-detail?id=' + this.id);
+        }
       },
 
       // 点击查看藏品详情
@@ -416,6 +443,7 @@
           .share {
             display: flex;
             align-items: center;
+            position: relative;
 
             p {
               font-size: 14px;
@@ -423,6 +451,7 @@
             }
 
             .share-icon {
+              cursor: pointer;
               width: 28px;
               height: 28px;
               margin-left: 17px;

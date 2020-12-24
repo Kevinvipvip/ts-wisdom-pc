@@ -24,8 +24,10 @@
         <div class="collect-cont" v-if="type===1">
           <ul v-for="(item,index) in collect_list" :key="index">
             <li v-for="v in item.list" :key="'collect'+v.id" @click="to_more_detail(type,v.id)">
-              <div class="img"
-                   :style="{paddingBottom: v.height / v.width * 100 + '%', backgroundImage: 'url('+v.cover+')'}"></div>
+              <div class="img-box">
+                <div class="img"
+                     :style="{paddingBottom: v.height / v.width * 100 + '%', backgroundImage: 'url('+v.cover+')'}"></div>
+              </div>
               <div class="item-cont">
                 <h3>{{v.title}}</h3>
                 <p>{{v.dynasty}} | {{v.cate_name}}</p>
@@ -35,7 +37,8 @@
         </div>
         <ul class="temp-list" v-else-if="type===2">
           <li v-for="(item,index) in result" :key="'result-temp'+index" @click="to_more_detail(type,item.id)">
-            <div class="img" :style="'background-image: url('+item.cover+')'">
+            <div class="img-box">
+              <div class="img" :style="'background-image: url('+item.cover+')'"></div>
               <div class="type" :class="'bg'+item.cate_id">{{item.tag}}</div>
             </div>
             <div class="item-cont">
@@ -48,7 +51,9 @@
         <div class="active" v-else-if="type===3">
           <div class="item" v-for="(item,index) in result" :key="'result-active'+index"
                @click="to_more_detail(type,item.id)">
-            <div class="img" :style="'background-image: url('+item.pic+')'"></div>
+            <div class="img-box">
+              <div class="img" :style="'background-image: url('+item.pic+')'"></div>
+            </div>
             <div class="item-cont">
               <h3 class="two-line-ellipsis">{{item.title}}</h3>
               <div class="p-box">
@@ -63,7 +68,8 @@
             <li v-for="(item,index) in result" :key="'result-news'+index" @click="to_more_detail(type,item.id)">
               <div class="bg-new-box"></div>
               <div class="li-item">
-                <div class="img" :style="'background-image: url('+item.pic+')'">
+                <div class="img-box">
+                  <div class="img" :style="'background-image: url('+item.pic+')'"></div>
                   <div class="type" :class="'bg'+item.type">{{item.type_name}}</div>
                 </div>
                 <div class="new-cont">

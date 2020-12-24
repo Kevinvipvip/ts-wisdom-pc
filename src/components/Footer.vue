@@ -49,23 +49,20 @@
         <div class="icon"><img src="../assets/fixed/icon-share.png"/></div>
         <div class="line one"><i></i></div>
         <!--<div class="share-box">-->
-          <!--<div class="share-icon"><img src="../assets/wechat.png"/></div>-->
-          <!--<div class="share-icon"><img src="../assets/qq.png"/></div>-->
+        <!--<div class="share-icon"><img src="../assets/wechat.png"/></div>-->
+        <!--<div class="share-icon"><img src="../assets/qq.png"/></div>-->
         <!--</div>-->
       </div>
       <div class="fixed-item" @click="return_top">
         <div class="icon"><img src="../assets/fixed/icon-top.png"/></div>
       </div>
-      <div class="qr-code" ref="qrCode"></div>
+      <!--<div class="qr-code" ref="qrCode"></div>-->
       <!--<vue-qr :text="wap_url" :margin="5" :logoSrc="logo" :logoScale="0.3" :size="200"></vue-qr>-->
     </div>
   </div>
 </template>
 
 <script>
-
-  import QRCode from 'qrcodejs2'
-
   export default {
     name: "Footer",
     data() {
@@ -86,7 +83,7 @@
           str = (Array(8).join("0") + str).slice(-8);
         this.footer.visits = str;
       });
-      this.creatQrCode('https://www.wcip.net');
+      // this.creatQrCode('https://www.wcip.net');
     },
     methods: {
       // 点击跳转门票预约
@@ -100,18 +97,6 @@
           top: 0,
           behavior: "smooth"
         });
-      },
-
-      // 生成二维码
-      creatQrCode(url) {
-        this.qrcode = new QRCode(this.$refs.qrCode, {
-          text: url, // 需要转换为二维码的内容
-          width: 200,
-          height: 200,
-          colorDark: '#000000',
-          colorLight: '#ffffff',
-          correctLevel: QRCode.CorrectLevel.H
-        })
       },
     }
   }
@@ -186,7 +171,7 @@
 
     .fixed-box {
       position: fixed;
-      right: 122px;
+      right: 30px;
       z-index: 9999999;
       top: 50%;
       transform: translateY(-50%);
@@ -271,7 +256,8 @@
           .share-icon {
             width: 35px;
             height: 35px;
-            img{
+
+            img {
               height: 100%;
             }
           }
@@ -302,7 +288,8 @@
               border-bottom: 10px solid transparent;
             }
           }
-          .share-box{
+
+          .share-box {
             width: 100px;
           }
         }

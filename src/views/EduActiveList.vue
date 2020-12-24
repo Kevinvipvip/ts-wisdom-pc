@@ -19,8 +19,9 @@
           <h3>{{item.start_time}}</h3>
           <p>{{item.title}}</p>
           <div class="img-list">
-            <div class="img" v-for="(v,i) in item.pics" :key="'edu-item'+i"
-                 :style="'background-image:url('+v+')'" @click="open(v)"></div>
+            <div class="img" v-for="(v,i) in item.pics" :key="'edu-item'+i" @click="open(v)">
+              <i :style="'background-image:url('+v+')'"></i>
+            </div>
           </div>
         </div>
       </div>
@@ -265,12 +266,26 @@
             height: 200px;
             margin-right: 24px;
             margin-top: 24px;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
+            overflow: hidden;
 
             &:nth-child(-n+3) {
               margin-top: 0;
+            }
+
+            i {
+              display: block;
+              width: 100%;
+              height: 100%;
+              transition: 0.5s;
+              background-size: cover;
+              background-repeat: no-repeat;
+              background-position: center;
+            }
+
+            &:hover {
+              i {
+                transform: scale(1.1);
+              }
             }
           }
         }

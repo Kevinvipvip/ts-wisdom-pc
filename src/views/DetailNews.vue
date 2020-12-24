@@ -2,13 +2,6 @@
   <div class="news-detail page">
     <background type="border">
       <crumb :to="from_type === 2?'/news':'null'" :to_title="from_type===2?'最新动态':''"/>
-      <!--<div class="crumb">-->
-      <!--<router-link to="/" tag="p">首页</router-link>-->
-      <!--<div class="slant"></div>-->
-      <!--<router-link to="/news" tag="p">最新动态</router-link>-->
-      <!--<div class="slant"></div>-->
-      <!--<p class="no-click">动态详情</p>-->
-      <!--</div>-->
       <div class="detail-title">{{detail.title}}</div>
       <div class="mini-title">
         <div class="mini-item">
@@ -19,9 +12,15 @@
         </div>
         <div class="mini-item share">
           分享至：
-          <div class="icon"><img src="../assets/wechat.png"/></div>
-          <div class="icon"><img src="../assets/qq.png"/></div>
-          <div class="icon"><img src="../assets/sina.png"/></div>
+          <div class="icon" @click.stop="share(1,'微信')"><img src="../assets/wechat.png"/></div>
+          <div class="icon" @click.stop="share(3,'QQ')"><img src="../assets/qq.png"/></div>
+          <div class="icon" @click="share(2)"><img src="../assets/sina.png"/></div>
+          <div class="create-share-code" @click.stop :class="show_share?'show-share':''">
+            <span>分享至{{share_title}}</span>
+            <div class="code" ref="qrCode"></div>
+            <span>打开{{share_title}}，点击右上角加号</span>
+            <span>使用扫一扫进入手机版网页即可分享</span>
+          </div>
         </div>
       </div>
       <div class="rich-text" v-html="detail.content"></div>
@@ -50,7 +49,10 @@
         next_i: 2,
 
         news_list: [],
-        detail: {}
+        detail: {},
+
+        share_title: '',
+        show_share: false,
       };
     },
     // 跳转本页时参数变化后重新调取新闻公告详情数据
@@ -64,6 +66,14 @@
       this.id = parseInt(this.$route.query.id);
       this.from_type = parseInt(this.$route.query.from_type);
       this.getArticleDetail();
+      this.utils.initCode(this);
+      window.addEventListener('click', () => {
+        this.show_share = false;
+      });
+    },
+    destroyed() {
+      window.removeEventListener('click', () => {
+      }, false);
     },
     methods: {
       // 上一篇新闻
@@ -85,11 +95,25 @@
         }
       },
 
+      // 分享
+      share(type, title) {
+        if (type === 2) {
+          var sharesinastring = 'http://v.t.sina.com.cn/share/share.php?title=' + this.detail.title + '&url=' + window.location.href + '&content=utf-8&sourceUrl=' + this.detail.desc + '&pic=' + this.detail.pic;
+          window.open(sharesinastring);
+        } else {
+          this.share_title = title;
+          this.show_share = true;
+          this.qrcode.clear();
+          this.qrcode.makeCode(this.config.url + 'wap/#/new-detail?id=' + this.detail.id);
+        }
+      },
+
       // 获取新闻公告详情
       getArticleDetail() {
         let post = { article_id: this.id };
         this.utils.ajax(this, 'api/articleDetail', post).then(detail => {
           detail.create_time = detail.create_time.split(' ')[0];
+          this.utils.aliyun_format(detail);
           this.detail = detail;
           this.getArticleList();
         });
@@ -158,12 +182,14 @@
         &.share {
           font-size: 14px;
           color: #666666;
+          position: relative;
 
           .icon {
             /*cursor: pointer;*/
             width: 28px;
             height: 28px;
             margin-left: 17px;
+            cursor: pointer;
           }
         }
       }

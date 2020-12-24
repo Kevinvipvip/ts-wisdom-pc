@@ -13,9 +13,15 @@
         </div>
         <div class="mini-item share">
           分享至：
-          <div class="icon"><img src="../assets/wechat.png"/></div>
-          <div class="icon"><img src="../assets/qq.png"/></div>
-          <div class="icon"><img src="../assets/sina.png"/></div>
+          <div class="icon" @click.stop="share(1,'微信')"><img src="../assets/wechat.png"/></div>
+          <div class="icon" @click.stop="share(3,'QQ')"><img src="../assets/qq.png"/></div>
+          <div class="icon" @click="share(2)"><img src="../assets/sina.png"/></div>
+          <div class="create-share-code" @click.stop :class="show_share?'show-share':''">
+            <span>分享至{{share_title}}</span>
+            <div class="code" ref="qrCode"></div>
+            <span>打开{{share_title}}，点击右上角加号</span>
+            <span>使用扫一扫进入手机版网页即可分享</span>
+          </div>
         </div>
       </div>
       <div class="rich-text" v-html="detail.content"></div>
@@ -45,7 +51,10 @@
         next_i: 2,
 
         article_list: [],
-        detail: {}
+        detail: {},
+
+        share_title: '',
+        show_share: false,
       };
     },
     // 跳转本页时参数变化后重新调取新闻公告详情数据
@@ -59,6 +68,14 @@
       this.id = parseInt(this.$route.query.id);
       this.from_type = parseInt(this.$route.query.from_type);
       this.getStudyArticleDetail();
+      this.utils.initCode(this);
+      window.addEventListener('click', () => {
+        this.show_share = false;
+      });
+    },
+    destroyed() {
+      window.removeEventListener('click', () => {
+      }, false);
     },
     methods: {
       // 上一篇新闻
@@ -77,6 +94,19 @@
           this.$router.replace({ name: 'detail_study_article', query: { id: id, from_type: this.from_type } });
         } else {
           this.$Message.info('没有下一篇了')
+        }
+      },
+
+      // 分享
+      share(type, title) {
+        if (type === 2) {
+          var sharesinastring = 'http://v.t.sina.com.cn/share/share.php?title=' + this.detail.title + '&url=' + window.location.href + '&content=utf-8&sourceUrl=' + this.detail.desc + '&pic=' + this.detail.pic;
+          window.open(sharesinastring);
+        } else {
+          this.share_title = title;
+          this.show_share = true;
+          this.qrcode.clear();
+          this.qrcode.makeCode(this.config.url + 'wap/#/new-detail?id=' + this.detail.id);
         }
       },
 
@@ -153,9 +183,10 @@
         &.share {
           font-size: 14px;
           color: #666666;
+          position: relative;
 
           .icon {
-            /*cursor: pointer;*/
+            cursor: pointer;
             width: 28px;
             height: 28px;
             margin-left: 17px;

@@ -6,7 +6,9 @@
       <!--常设展览-->
       <div class="title"><h3>常设展览</h3></div>
       <div class="standing" v-if="standing_list.length">
-        <div class="img" :style="'background-image: url('+standing_list[standing_index].cover+')'"></div>
+        <div class="img-box">
+          <div class="img" :style="'background-image: url('+standing_list[standing_index].cover+')'"></div>
+        </div>
         <ul>
           <li v-for="(item,index) in standing_list" :key="'standing'+index"
               :class="standing_index === index?'hover-on':''"
@@ -30,7 +32,8 @@
         </div>
         <ul v-if="temp_list.length">
           <li v-for="(item,index) in temp_list" :key="'temp'+index" @click="to_detail(item.id)">
-            <div class="img" :style="'background-image: url('+item.cover+')'">
+            <div class="img-box">
+              <div class="img" :style="'background-image: url('+item.cover+')'"></div>
               <div class="type" :class="'bg'+item.cate_id">{{item.tag}}</div>
             </div>
             <div class="item-cont">
@@ -173,15 +176,26 @@
     .standing {
       display: flex;
 
-      .img {
+      .img-box {
         flex-shrink: 0;
         width: 552px;
         height: 368px;
         margin-right: 24px;
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-color: #cccccc;
+        overflow: hidden;
+
+        .img {
+          width: 100%;
+          height: 100%;
+          transition: 0.5s;
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-color: #cccccc;
+
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
       }
 
       ul {
@@ -276,13 +290,20 @@
             margin-right: 0;
           }
 
-          .img {
+          .img-box {
             position: relative;
             width: 100%;
             height: 240px;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+            overflow: hidden;
+
+            .img {
+              width: 100%;
+              height: 100%;
+              transition: 0.5s;
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
 
             .type {
               position: absolute;
@@ -325,6 +346,12 @@
           &:hover {
             background-color: #cf903a;
 
+            .img-box {
+              .img {
+                transform: scale(1.1);
+              }
+            }
+
             .item-cont {
               h3 {
                 color: #ffffff;
@@ -348,8 +375,11 @@
       display: flex;
       align-items: flex-end;
       cursor: pointer;
+      overflow: hidden;
 
       h3 {
+        position: relative;
+        bottom: -60px;
         width: 100%;
         display: flex;
         font-weight: normal;
@@ -360,9 +390,16 @@
         align-items: center;
         padding: 0 24px;
         font-size: 16px;
+        transition: 0.5s;
 
         p:last-child {
           font-size: 20px;
+        }
+      }
+
+      &:hover {
+        h3 {
+          bottom: 0;
         }
       }
     }

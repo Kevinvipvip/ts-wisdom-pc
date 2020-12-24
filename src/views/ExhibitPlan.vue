@@ -5,13 +5,18 @@
       <crumb to="/exhibition" to_title="陈列展览"/>
       <div class="plan-list">
         <ul>
-          <li v-for="(item,index) in plan_list" :key="'plan'+index">
-            <div class="img" :style="'background-image: url('+item.pic+')'"></div>
-            <div class="plan-cont">
-              <h3 class="one-line-ellipsis">{{item.title}}</h3>
-              <p class="date">{{item.create_time}}</p>
-              <p class="two-line-ellipsis">{{item.desc}}</p>
-              <div class="btn" @click="to_plan_detail(item.id)">查看详情</div>
+          <li v-for="(item,index) in plan_list" :key="'plan'+index" @click="to_plan_detail(item.id)">
+            <div class="bg-new-box"></div>
+            <div class="li-item">
+              <div class="img-box">
+                <div class="img" :style="'background-image: url('+item.pic+')'"></div>
+              </div>
+              <div class="plan-cont">
+                <h3 class="one-line-ellipsis">{{item.title}}</h3>
+                <p class="date">{{item.create_time}}</p>
+                <p class="two-line-ellipsis">{{item.desc}}</p>
+                <div class="btn">查看详情</div>
+              </div>
             </div>
           </li>
         </ul>
@@ -74,84 +79,151 @@
           display: flex;
           align-items: center;
           border-bottom: solid 1px #e8e2ca;
+          cursor: pointer;
+          position: relative;
 
-          &:hover {
+          .bg-new-box {
+            position: absolute;
+            z-index: 1;
+            opacity: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: 1s;
             background-image: url("../assets/bg-news-list-selected.png");
+            /*background-color: #b38146;*/
             background-repeat: no-repeat;
             background-position: right;
-            background-size: auto 100%;
+            background-size: 100%;
+          }
 
-            .plan-cont {
-              color: #ffffff;
+          &:hover {
+            .bg-new-box {
+              opacity: 1;
+            }
 
-              h3 {
-                color: #ffffff;
-              }
-
-              p {
-                color: #ffffff;
-              }
-
-              .btn {
+            .li-item {
+              .plan-cont {
                 color: #ffffff;
 
-                &:after {
-                  background-image: url("../assets/icon-arrows-selected.png");
+                h3 {
+                  color: #ffffff;
+                }
+
+                p {
+                  color: #ffffff;
+                }
+
+                .btn {
+                  color: #ffffff;
+
+                  &:after {
+                    background-image: url("../assets/icon-arrows-selected.png");
+                  }
                 }
               }
             }
           }
 
-          .img {
-            margin: 24px;
-            width: 240px;
-            height: 160px;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-            flex-shrink: 0;
-          }
+          .li-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 5;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            border-bottom: solid 1px #e8e2ca;
 
-          .plan-cont {
-            flex-grow: 1;
-            width: calc(100% - 300px);
-            margin-right: 24px;
+            .img-box {
+              overflow: hidden;
+              flex-shrink: 0;
+              width: 240px;
+              height: 160px;
+              margin: 24px;
 
-            h3 {
-              font-weight: normal;
-              font-size: 20px;
-              color: #333333;
-            }
+              .img {
+                width: 100%;
+                height: 100%;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+                position: relative;
+                transition: 0.5s;
+              }
 
-            p {
-              font-size: 14px;
-              color: #999999;
-              line-height: 20px;
-              text-align: justify;
+              .type {
+                position: absolute;
+                top: 34px;
+                left: 34px;
+                padding: 5px 10px;
+                background-color: #cf903a;
+                border-radius: 4px;
+                font-size: 14px;
+                color: #ffffff;
 
-              &.date {
-                margin: 18px 0;
+                &.bg2 {
+                  background-color: #a5a59f;
+                }
+
+                &.bg3 {
+                  background-color: #29ac83;
+                }
+
+                &.bg4 {
+                  background-color: #f56f40;
+                }
+              }
+
+              &:hover {
+                .img {
+                  transform: scale(1.1);
+                }
               }
             }
 
-            .btn {
-              font-size: 14px;
-              color: #333333;
-              margin-top: 18px;
-              display: flex;
-              align-items: center;
-              cursor: pointer;
+            .plan-cont {
+              flex-grow: 1;
+              width: calc(100% - 300px);
+              margin-right: 24px;
 
-              &:after {
-                content: '';
-                margin-left: 6px;
-                width: 10px;
-                height: 14px;
-                display: block;
-                background-image: url("../assets/icon-arrows-default.png");
-                background-position: center;
-                background-size: 100%;
-                background-repeat: no-repeat;
+              h3 {
+                font-weight: normal;
+                font-size: 20px;
+                color: #333333;
+              }
+
+              p {
+                font-size: 14px;
+                color: #999999;
+                line-height: 20px;
+                text-align: justify;
+
+                &.date {
+                  margin: 18px 0;
+                }
+              }
+
+              .btn {
+                font-size: 14px;
+                color: #333333;
+                margin-top: 18px;
+                display: flex;
+                align-items: center;
+
+                &:after {
+                  content: '';
+                  margin-left: 6px;
+                  width: 10px;
+                  height: 14px;
+                  display: block;
+                  background-image: url("../assets/icon-arrows-default.png");
+                  background-position: center;
+                  background-size: 100%;
+                  background-repeat: no-repeat;
+                }
               }
             }
           }

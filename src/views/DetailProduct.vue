@@ -111,6 +111,7 @@
   .detail-product {
     .detail-title {
       display: flex;
+      margin-top: 40px;
 
       .detail-swiper {
         margin-right: 66px;

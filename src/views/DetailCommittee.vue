@@ -14,7 +14,9 @@
         <h3>唐山博物馆学术委员会成员名录</h3>
         <ul>
           <li v-for="(item,index) in member" :key="'member'+index">
-            <div class="img" :style="'background-image:url('+item.pic+')'"></div>
+            <div class="img-box">
+              <div class="img" :style="'background-image:url('+item.pic+')'"></div>
+            </div>
             <div class="member-cont">
               <h2>{{item.name}} | {{item.title1}}</h2>
               <p><span>姓名：{{item.name}}</span><span>学历：{{item.edu}}</span></p>
@@ -128,14 +130,27 @@
           border-top: 1px solid #e8e2ca;
           padding: 24px 24px 24px 0;
 
-          .img {
+          .img-box {
             width: 135px;
             height: 189px;
             flex-shrink: 0;
             margin-right: 24px;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
+            overflow: hidden;
+
+            .img {
+              width: 100%;
+              height: 100%;
+              transition: 0.5s;
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: cover;
+            }
+
+            &:hover {
+              .img {
+                transform: scale(1.1);
+              }
+            }
           }
 
           .member-cont {

@@ -35,7 +35,9 @@
       <div class="wonderful" :class="show_more?'show-more':''">
         <div class="wonderful-item" v-for="(item,index) in detail.collect_list" :key="'collect'+index"
              @click="to_collect_detail(item.id)">
-          <div class="img" :style="'background-image: url('+item.pic+')'"></div>
+          <div class="img-box">
+            <div class="img" :style="'background-image: url('+item.pic+')'"></div>
+          </div>
           <div class="item-cont">
             <h3 class="two-line-ellipsis">{{item.title}}</h3>
             <p>{{item.dynasty}}/{{item.cate_name}}/{{item.origin}}</p>
@@ -331,11 +333,25 @@
           opacity: 1;
         }
 
-        .img {
+        .img-box {
+          width: 100%;
           height: 240px;
-          background-position: center;
-          background-repeat: no-repeat;
-          background-size: cover;
+          overflow: hidden;
+
+          .img {
+            width: 100%;
+            height: 100%;
+            transition: 0.5s;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+
+          &:hover {
+            .img {
+              transform: scale(1.1);
+            }
+          }
         }
 
         .item-cont {

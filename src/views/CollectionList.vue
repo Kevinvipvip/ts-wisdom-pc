@@ -39,10 +39,11 @@
       <div class="collect-cont">
         <ul v-for="(item,index) in collect_list" :key="index">
           <li v-for="v in item.list" :key="'collect'+v.id" @click="to_collect_detail(v.id)">
-            <div class="img"
-                 :style="{paddingBottom: v.height / v.width * 100 + '%', backgroundImage: 'url('+v.cover+')'}"></div>
+            <div class="img-box">
+              <div class="img"
+                   :style="{paddingBottom: v.height / v.width * 100 + '%', backgroundImage: 'url('+v.cover+')'}"></div>
+            </div>
             <div class="item-cont">
-              <!--<p>{{v.id}}</p>-->
               <h3>{{v.title}}</h3>
               <p>{{v.dynasty}} | {{v.cate_name}}</p>
             </div>
@@ -297,7 +298,6 @@
         }
       }
     }
-
 
     .more {
       display: flex;

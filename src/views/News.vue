@@ -15,7 +15,8 @@
           <li v-for="(item,index) in news_list" :key="'news'+index" @click="look_detail(item.id)">
             <div class="bg-new-box"></div>
             <div class="li-item">
-              <div class="img" :style="'background-image: url('+item.pic+')'">
+              <div class="img-box">
+                <div class="img" :style="'background-image: url('+item.pic+')'"></div>
                 <div class="type" :class="'bg'+item.type">{{item.type_name}}</div>
               </div>
               <div class="new-cont">

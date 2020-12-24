@@ -46,7 +46,9 @@
         <swiper class='h-swiper' :options="home2" v-if="select_data.length>1">
 
           <swiper-slide v-for="(item, index) in select_data" :key="index" class="h-swiper-item" :id="item.id">
-            <div class="img" :style="'background-image: url('+item.cover+')'"></div>
+            <div class="img-box">
+              <div class="img" :style="'background-image: url('+item.cover+')'"></div>
+            </div>
             <h3 class="one-line-ellipsis">{{item.title}}</h3>
           </swiper-slide>
 
@@ -100,11 +102,11 @@
         swiper: [],//顶部轮播图数据
         banner: {
           autoplay: {
-            delay: 3000,
+            delay: 4000,
             stopOnLastSlide: false,
             disableOnInteraction: false,
           },
-          speed: 3000,
+          speed: 4000,
           pagination: {
             el: '.swiper-pagination',
             type: 'bullets',
@@ -112,7 +114,7 @@
           }
         },//首页顶部轮播图
 
-        code_img: this.config.aliyun + 'ts-static/pc/code-wx.png',//公众号二维码在阿里云的图片链接
+        code_img: this.config.aliyun + 'ts-static/pc/code-wx.jpg',//公众号二维码在阿里云的图片链接
         notice: '',//参观须知
 
         home2: {
@@ -174,24 +176,13 @@
           } else {
             let page = url.split('?');
             let query = page[1].split('=');
-            switch (page[0]) {
-              case 'detail_news':
-                this.$router.push({
-                  path: page[0],
-                  query: {
-                    id: query[1]
-                  }
-                });
-                break;
-              // case 'productDetail':
-              //   this.$router.push({
-              //     path: page[0],
-              //     query: {
-              //       id: query[1]
-              //     }
-              //   });
-              //   break;
-            }
+            this.$router.push({
+              name: page[0],
+              query: {
+                id: query[1],
+                from_type: 9999
+              }
+            });
           }
         }
       },
@@ -207,7 +198,7 @@
 
       // 获取精选展览数据内容
       getDisplayList() {
-        this.utils.ajax(this, 'api/displayList', { page: 1, perpage: 10 }).then(res => {
+        this.utils.ajax(this, 'api/displayList', { page: 1, perpage: 3 }).then(res => {
           this.utils.aliyun_format(res.list, 'cover');
           this.select_data = res.list;
         });
@@ -239,7 +230,6 @@
         width: 100%;
 
         .swiper-item {
-
           .img {
             width: 100%;
             height: 100%;
@@ -276,6 +266,7 @@
     }
 
     .home1 {
+      /*opacity: 0;*/
       height: 577px;
       margin-top: 43px;
       background-position: center;
@@ -414,12 +405,19 @@
             background-color: #c88e45;
             cursor: pointer;
 
-            .img {
+            .img-box {
               width: 100%;
               height: 275px;
-              background-repeat: no-repeat;
-              background-position: center;
-              background-size: cover;
+              overflow: hidden;
+
+              .img {
+                transition: 0.5s;
+                width: 100%;
+                height: 100%;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+              }
             }
 
             h3 {
@@ -430,6 +428,14 @@
               color: #ffffff;
               text-align: center;
               line-height: 60px;
+            }
+
+            &:hover {
+              .img-box {
+                .img {
+                  transform: scale(1.1);
+                }
+              }
             }
           }
         }
@@ -549,6 +555,7 @@
             width: 96px;
             height: 100%;
             display: flex;
+            transition: 0.5s;
             justify-content: center;
             align-items: center;
             flex-flow: column;

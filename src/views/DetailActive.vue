@@ -2,7 +2,8 @@
   <!--活动预约详情页-->
   <div class="detail-active page">
     <background type="border">
-      <crumb :to="from_type===1?'/service':'/active'" :to_title="from_type===1?'观众服务':'活动预约'"/>
+      <crumb v-if="from_type===1"/>
+      <crumb v-else :to="from_type===2?'/service':'/active'" :to_title="from_type===2?'观众服务':'活动预约'"/>
 
       <div class="active-top">
         <div class="img" :style="'background-image: url('+detail.pic+')'"></div>
@@ -21,10 +22,16 @@
                 <p>微信扫描二维码预约</p></div>
             </div>
             <div class="share">
-              <span>分享至：</span>
-              <div class="icon"><img src="../assets/wechat.png" alt=""></div>
-              <div class="icon"><img src="../assets/qq.png" alt=""></div>
-              <div class="icon"><img src="../assets/sina.png" alt=""></div>
+              分享至：
+              <div class="icon" @click.stop="share(1,'微信')"><img src="../assets/wechat.png"/></div>
+              <div class="icon" @click.stop="share(3,'QQ')"><img src="../assets/qq.png"/></div>
+              <div class="icon" @click="share(2)"><img src="../assets/sina.png"/></div>
+              <div class="create-share-code" @click.stop :class="show_share?'show-share':''">
+                <span>分享至{{share_title}}</span>
+                <div class="code" ref="qrCode"></div>
+                <span>打开{{share_title}}，点击右上角加号</span>
+                <span>使用扫一扫进入手机版网页即可分享</span>
+              </div>
             </div>
           </div>
         </div>
@@ -39,18 +46,29 @@
   export default {
     data() {
       return {
-        from_type: 0,//来源type：1为观众服务；2为活动预约
+        from_type: 0,//来源type：1为首页轮播图，2为观众服务；3为活动预约
 
         id: 0,
         code: this.config.aliyun + 'ts-static/pc/code-active.png',//二维码在阿里云的图片链接
 
-        detail: {}
+        detail: {},
+
+        share_title: '',
+        show_share: false,
       };
     },
     mounted() {
       this.id = parseInt(this.$route.query.id);
       this.from_type = parseInt(this.$route.query.from_type);
       this.getActivityDetail();
+      this.utils.initCode(this);
+      window.addEventListener('click', () => {
+        this.show_share = false;
+      });
+    },
+    destroyed() {
+      window.removeEventListener('click', () => {
+      }, false);
     },
     // beforeRouteEnter(to, from, next) {
     //   console.log(to);
@@ -61,6 +79,19 @@
     //   });
     // },
     methods: {
+      // 分享
+      share(type, title) {
+        if (type === 2) {
+          var sharesinastring = 'http://v.t.sina.com.cn/share/share.php?title=' + this.detail.title + '&url=' + window.location.href + '&content=utf-8&sourceUrl=' + this.detail.desc + '&pic=' + this.detail.pic;
+          window.open(sharesinastring);
+        } else {
+          this.share_title = title;
+          this.show_share = true;
+          this.qrcode.clear();
+          this.qrcode.makeCode(this.config.url + 'wap/#/new-detail?id=' + this.detail.id);
+        }
+      },
+
       getActivityDetail() {
         let post = { activity_id: this.id };
         this.utils.ajax(this, 'activity/activityDetail', post).then(res => {
@@ -143,6 +174,7 @@
               opacity: 0;
               left: 190px;
               top: 50%;
+              z-index: 2;
               transform: translateY(-50%);
               padding: 13px;
               box-sizing: border-box;
@@ -190,16 +222,15 @@
           .share {
             display: flex;
             align-items: center;
+            position: relative;
+            font-size: 14px;
+            color: #666666;
 
             .icon {
               width: 28px;
               height: 28px;
               margin-left: 17px;
-            }
-
-            span {
-              font-size: 14px;
-              color: #666666;
+              cursor: pointer;
             }
           }
         }

@@ -194,7 +194,7 @@ img {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 999;
+  z-index: 10000000;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
@@ -209,6 +209,39 @@ img {
     img {
       width: auto;
     }
+  }
+}
+
+//详情页分享按钮生成二维码样式
+.create-share-code {
+  position: absolute;
+  top: 35px;
+  left: 0;
+  width: max-content;
+  height: 0;
+  transition: 0.5s;
+  padding: 0 15px;
+  overflow: hidden;
+  background-color: rgba(207, 144, 58, 0.99);
+
+  span {
+    display: block;
+    color: #ffffff;
+    font-size: 12px;
+    text-align: justify;
+  }
+
+  .code {
+    padding: 5px;
+    background-color: #ffffff;
+    width: 180px;
+    height: 180px;
+    margin: 10px auto;
+  }
+
+  &.show-share {
+    padding: 15px;
+    height: 300px;
   }
 }
 
@@ -232,10 +265,15 @@ img {
       cursor: pointer;
       transition: 1s;
 
-      .img {
-        background-repeat: no-repeat;
-        background-size: 100%;
-        background-position: center;
+      .img-box {
+        overflow: hidden;
+
+        .img {
+          transition: 0.5s;
+          background-repeat: no-repeat;
+          background-size: 100%;
+          background-position: center;
+        }
       }
 
       .item-cont {
@@ -261,6 +299,12 @@ img {
 
       &:hover {
         background-color: #cf903a;
+
+        .img-box {
+          .img {
+            transform: scale(1.1);
+          }
+        }
 
         .item-cont {
           h3 {
@@ -298,13 +342,20 @@ img {
       margin-top: 0;
     }
 
-    .img {
+    .img-box {
       position: relative;
       width: 100%;
       height: 240px;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
+      overflow: hidden;
+
+      .img {
+        width: 100%;
+        height: 100%;
+        transition: 0.5s;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
 
       .type {
         position: absolute;
@@ -347,6 +398,12 @@ img {
     &:hover {
       background-color: #cf903a;
 
+      .img-box {
+        .img {
+          transform: scale(1.1);
+        }
+      }
+
       .item-cont {
         h3 {
           color: #ffffff;
@@ -361,7 +418,7 @@ img {
   }
 }
 
-.active {//预约活动和搜索页活动列表样式
+.active { //预约活动和搜索页活动列表样式
   margin: 40px 0;
   display: flex;
   flex-wrap: wrap;
@@ -378,12 +435,19 @@ img {
       margin-right: 0;
     }
 
-    .img {
+    .img-box {
       width: 100%;
       height: 240px;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
+      overflow: hidden;
+
+      .img {
+        width: 100%;
+        height: 100%;
+        transition: 0.5s;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
     }
 
     .item-cont {
@@ -415,6 +479,12 @@ img {
     &:hover {
       background-color: #cf903a;
 
+      .img-box {
+        .img {
+          transform: scale(1.1);
+        }
+      }
+
       .item-cont {
         h3 {
           color: #ffffff;
@@ -434,8 +504,9 @@ img {
   }
 }
 
-.news-list {//新闻页面和搜索页新闻列表样式
+.news-list { //新闻页面和搜索页新闻列表样式
   margin-top: 40px;
+
   ul {
     li {
       height: 208px;
@@ -497,20 +568,27 @@ img {
         align-items: center;
         border-bottom: solid 1px #e8e2ca;
 
-        .img {
-          margin: 24px;
+        .img-box {
+          overflow: hidden;
+          flex-shrink: 0;
           width: 240px;
           height: 160px;
-          background-repeat: no-repeat;
-          background-size: cover;
-          background-position: center;
-          flex-shrink: 0;
-          position: relative;
+          margin: 24px;
+
+          .img {
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            transition: 0.5s;
+          }
 
           .type {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 34px;
+            left: 34px;
             padding: 5px 10px;
             background-color: #cf903a;
             border-radius: 4px;
@@ -527,6 +605,12 @@ img {
 
             &.bg4 {
               background-color: #f56f40;
+            }
+          }
+
+          &:hover {
+            .img {
+              transform: scale(1.1);
             }
           }
         }

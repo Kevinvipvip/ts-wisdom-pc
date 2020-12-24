@@ -1,5 +1,6 @@
 import config from './config';
 import qs from 'qs';
+import QRCode from 'qrcodejs2'
 
 const date_format = (date, fmt = 'yyyy.MM.dd') => {
   if (date) {
@@ -144,6 +145,18 @@ const getMinIndex = (arr) => {
   return index;
 };
 
+// 初始化二维码
+const initCode = (vue) => {
+  vue.qrcode = new QRCode(vue.$refs.qrCode, {
+    text: '',
+    width: 200,
+    height: 200,
+    colorDark: '#333333', // 二维码颜色
+    colorLight: '#ffffff', // 二维码背景色
+    correctLevel: QRCode.CorrectLevel.L // 容错率，L/M/H
+  });
+};
+
 export default {
   date_format,//格式化时间
   aliyun_format,//阿里云图片地址补全
@@ -151,4 +164,5 @@ export default {
   stop,//禁止页面滑动
   move,//取消滚动限制
   getMinIndex,//获取最小值数组索引值
+  initCode,//初始化二维码
 }

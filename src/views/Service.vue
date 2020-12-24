@@ -28,7 +28,9 @@
       <div class="title" v-if="active.length"><h3>活动预约</h3></div>
       <div class="active" v-if="active.length">
         <div class="item" v-for="(item,index) in active" :key="'active'+index" @click="to_active_detail(item.id)">
-          <div class="img" :style="'background-image: url('+item.pic+')'"></div>
+          <div class="img-box">
+            <div class="img" :style="'background-image: url('+item.pic+')'"></div>
+          </div>
           <div class="item-cont">
             <h3 class="two-line-ellipsis">{{item.title}}</h3>
             <div class="p-box">
@@ -38,17 +40,6 @@
           </div>
         </div>
       </div>
-      <!--<div class="active" v-if="active.length">-->
-        <!--<div class="item" v-for="(item,index) in active" :key="'active'+index" @click="to_active_detail(item.id)">-->
-          <!--<div class="img" :style="'background-image: url('+item.pic+')'"></div>-->
-          <!--<div class="item-cont">-->
-            <!--<h3 class="two-line-ellipsis">{{item.title}}</h3>-->
-            <!--<p class="one-line-ellipsis">活动时间：{{item.start_time}}</p>-->
-            <!--<p class="hove-right-tip one-line-ellipsis">活动地点：{{item.address}}</p>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="item" v-if="active.length === 2" style="border: none;background: unset"></div>-->
-      <!--</div>-->
       <div class="more">
         <router-link to="/active">查看更多</router-link>
       </div>
@@ -119,7 +110,7 @@
 
       // 点击前往活动预约详情
       to_active_detail(id) {
-        this.$router.push({ name: 'detail_active', query: { id: id, from_type: 1 } });
+        this.$router.push({ name: 'detail_active', query: { id: id, from_type: 2 } });
       },
 
       getActivityList() {
@@ -320,67 +311,67 @@
     }
 
     /*.active {*/
-      /*display: flex;*/
-      /*justify-content: space-between;*/
+    /*display: flex;*/
+    /*justify-content: space-between;*/
 
-      /*.item {*/
-        /*width: calc(33.33333% - 12px);*/
-        /*background-color: #ffffff;*/
-        /*border: solid 1px #cccccc;*/
-        /*cursor: pointer;*/
+    /*.item {*/
+    /*width: calc(33.33333% - 12px);*/
+    /*background-color: #ffffff;*/
+    /*border: solid 1px #cccccc;*/
+    /*cursor: pointer;*/
 
-        /*.img {*/
-          /*width: 100%;*/
-          /*height: 240px;*/
-          /*background-repeat: no-repeat;*/
-          /*background-size: cover;*/
-          /*background-position: center;*/
-        /*}*/
+    /*.img {*/
+    /*width: 100%;*/
+    /*height: 240px;*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
+    /*background-position: center;*/
+    /*}*/
 
-        /*.item-cont {*/
-          /*margin: 20px 20px 15px;*/
+    /*.item-cont {*/
+    /*margin: 20px 20px 15px;*/
 
-          /*h3 {*/
-            /*font-size: 20px;*/
-            /*text-align: justify;*/
-            /*font-weight: normal;*/
-            /*color: #333333;*/
-            /*margin-bottom: 20px;*/
-          /*}*/
+    /*h3 {*/
+    /*font-size: 20px;*/
+    /*text-align: justify;*/
+    /*font-weight: normal;*/
+    /*color: #333333;*/
+    /*margin-bottom: 20px;*/
+    /*}*/
 
-          /*p {*/
-            /*font-size: 14px;*/
-            /*color: #666666;*/
+    /*p {*/
+    /*font-size: 14px;*/
+    /*color: #666666;*/
 
-            /*&.hove-right-tip {*/
-              /*padding-right: 15px;*/
-              /*box-sizing: border-box;*/
-              /*background-image: url("../assets/icon-arrows-default.png");*/
-              /*background-size: 10px 14px;*/
-              /*background-position: right;*/
-              /*background-repeat: no-repeat;*/
-            /*}*/
-          /*}*/
-        /*}*/
+    /*&.hove-right-tip {*/
+    /*padding-right: 15px;*/
+    /*box-sizing: border-box;*/
+    /*background-image: url("../assets/icon-arrows-default.png");*/
+    /*background-size: 10px 14px;*/
+    /*background-position: right;*/
+    /*background-repeat: no-repeat;*/
+    /*}*/
+    /*}*/
+    /*}*/
 
-        /*&:hover {*/
-          /*background-color: #cf903a;*/
+    /*&:hover {*/
+    /*background-color: #cf903a;*/
 
-          /*.item-cont {*/
-            /*h3 {*/
-              /*color: #ffffff;*/
-            /*}*/
+    /*.item-cont {*/
+    /*h3 {*/
+    /*color: #ffffff;*/
+    /*}*/
 
-            /*p {*/
-              /*color: #ffffff;*/
+    /*p {*/
+    /*color: #ffffff;*/
 
-              /*&.hove-right-tip {*/
-                /*background-image: url("../assets/icon-arrows-selected.png");*/
-              /*}*/
-            /*}*/
-          /*}*/
-        /*}*/
-      /*}*/
+    /*&.hove-right-tip {*/
+    /*background-image: url("../assets/icon-arrows-selected.png");*/
+    /*}*/
+    /*}*/
+    /*}*/
+    /*}*/
+    /*}*/
     /*}*/
 
     .traffic {

@@ -1,10 +1,12 @@
 <template>
   <div class="active-list page">
     <background type="border">
-      <crumb/>
+      <crumb to="/service" to_title="观众服务"/>
       <div class="active">
         <div class="item" v-for="(item,index) in active" :key="'active'+index" @click="to_active_detail(item.id)">
-          <div class="img" :style="'background-image: url('+item.pic+')'"></div>
+          <div class="img-box">
+            <div class="img" :style="'background-image: url('+item.pic+')'"></div>
+          </div>
           <div class="item-cont">
             <h3 class="two-line-ellipsis">{{item.title}}</h3>
             <div class="p-box">
@@ -45,7 +47,7 @@
 
       // 点击前往活动预约详情
       to_active_detail(id) {
-        this.$router.push({ name: 'detail_active', query: { id: id, from_type: 2 } });
+        this.$router.push({ name: 'detail_active', query: { id: id, from_type: 3 } });
       },
 
       getActivityList() {

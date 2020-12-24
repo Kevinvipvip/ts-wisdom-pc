@@ -5,7 +5,8 @@
       <crumb to="/exhibition" to_title="陈列展览"/>
       <ul class="temp-list" v-if="temp_list.length">
         <li v-for="(item,index) in temp_list" :key="'temp'+index" @click="to_detail(item.id)">
-          <div class="img" :style="'background-image: url('+item.cover+')'">
+          <div class="img-box">
+            <div class="img" :style="'background-image: url('+item.cover+')'"></div>
             <div class="type" :class="'bg'+item.cate_id">{{item.tag}}</div>
           </div>
           <div class="item-cont">
