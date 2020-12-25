@@ -49,7 +49,7 @@
         from_type: 0,//来源type：1为首页轮播图，2为观众服务；3为活动预约
 
         id: 0,
-        code: this.config.aliyun + 'ts-static/pc/code-active.png',//二维码在阿里云的图片链接
+        code: this.config.aliyun + 'ts-static/pc/code-active.jpg',//二维码在阿里云的图片链接
 
         detail: {},
 

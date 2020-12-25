@@ -50,12 +50,20 @@
       <swiper class='swiper' :options="banner" v-if="detail.pics.length>0">
 
         <swiper-slide v-for="(item, index) in detail.pics" :key="index" class="swiper-item">
-          <div class="img" :style="'background-image: url('+item+')'"></div>
+          <div class="img" :style="'background-image: url('+item+')'" @click="open(item)"></div>
         </swiper-slide>
 
       </swiper>
 
     </background>
+
+    <!--点击查看大图显示遮罩-->
+    <div class="img-mask" v-if="img_mask" @click="hiddin_img">
+      <div class="img-mask-cont">
+        <img :src="look_img_url"/>
+      </div>
+    </div>
+
     <div class="mask" v-if="show_mask" @click="show_mask=false">
       <div class="mask-cont" @click.stop>
         <div class="close" @click.stop="show_mask=false"><img src="../assets/icon-close.png"/></div>
@@ -92,6 +100,8 @@
         },//展厅内景轮播图配置
 
         show_mask: false,
+        img_mask: false,
+        look_img_url: '',
         show_more: false,//精彩展品是否显示更多
       };
     },
@@ -142,6 +152,18 @@
       // 点击查看全部简介
       look_all() {
         this.show_mask = true;
+      },
+
+      // 点击查看大图
+      open(url) {
+        this.look_img_url = url;
+        this.img_mask = true;
+        this.utils.stop()
+      },
+      // 点击关闭大图
+      hiddin_img() {
+        this.img_mask = false;
+        this.utils.move();
       },
 
       // 点击查看文物详情
@@ -426,6 +448,7 @@
         width: 300px;
 
         .img {
+          cursor: pointer;
           width: 100%;
           height: 100%;
           background-color: #e8e2c9;

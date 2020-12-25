@@ -174,7 +174,7 @@
         this.show_mask = true;
         this.utils.stop();
       },
-      // 点击查看全部简介
+      // 点击关闭全部简介
       close_mask() {
         this.show_mask = false;
         this.utils.move();
