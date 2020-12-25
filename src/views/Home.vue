@@ -249,7 +249,7 @@
 
         .swiper-pagination-bullet {
           width: 46px;
-          height: 30px;
+          height: 46px;
           margin: 0 5px;
           background-image: url("../assets/icon-swiper-page1.png");
           background-color: unset;
@@ -257,6 +257,7 @@
           background-size: 100%;
           background-position: center;
           outline: none;
+          opacity: 1;
 
           &.swiper-pagination-bullet-active {
             background-image: url("../assets/icon-swiper-page2.png");
