@@ -198,7 +198,7 @@
 
       // 获取精选展览数据内容
       getDisplayList() {
-        this.utils.ajax(this, 'api/displayList', { page: 1, perpage: 3 }).then(res => {
+        this.utils.ajax(this, 'api/displayList', { recommend:1, page: 1, perpage: 3 }).then(res => {
           this.utils.aliyun_format(res.list, 'cover');
           this.select_data = res.list;
         });

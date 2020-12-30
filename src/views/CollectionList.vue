@@ -212,7 +212,7 @@
       .sreach-item {
         width: 287px;
         height: 60px;
-        background-image: url("../assets/bg-btn-more.png");
+        background-image: url("../assets/bg-border-collect.png");
         background-size: 100% 100%;
         background-repeat: no-repeat;
         display: flex;

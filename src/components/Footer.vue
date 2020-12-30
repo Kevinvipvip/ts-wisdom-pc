@@ -29,7 +29,7 @@
 
     <div class="fixed-box">
       <div class="fixed-item piying">
-        <div class="icon"><img src="../assets/fixed/piying.png"/></div>
+        <div class="icon"><img :src="piying"/></div>
       </div>
       <div class="fixed-item" @click="to_buy_ticket">
         <div class="icon"><img src="../assets/fixed/icon-order.png"/></div>
@@ -46,12 +46,12 @@
         <div class="code"><img src="../assets/fixed/img-tiktok.png"/></div>
       </div>
       <!--<div class="fixed-item ">-->
-        <!--<div class="icon"><img src="../assets/fixed/icon-share.png"/></div>-->
-        <!--<div class="line one"><i></i></div>-->
-        <!--&lt;!&ndash;<div class="share-box">&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="share-icon"><img src="../assets/wechat.png"/></div>&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="share-icon"><img src="../assets/qq.png"/></div>&ndash;&gt;-->
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--<div class="icon"><img src="../assets/fixed/icon-share.png"/></div>-->
+      <!--<div class="line one"><i></i></div>-->
+      <!--&lt;!&ndash;<div class="share-box">&ndash;&gt;-->
+      <!--&lt;!&ndash;<div class="share-icon"><img src="../assets/wechat.png"/></div>&ndash;&gt;-->
+      <!--&lt;!&ndash;<div class="share-icon"><img src="../assets/qq.png"/></div>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
       <!--</div>-->
       <div class="fixed-item" @click="return_top">
         <div class="icon"><img src="../assets/fixed/icon-top.png"/></div>
@@ -67,6 +67,7 @@
     name: "Footer",
     data() {
       return {
+        piying: this.config.aliyun + 'ts-static/pc/piying.gif',
         footer: { visits: 0, wap_url: 'https://www.wcip.net', logo: require('../assets/logo.png') }
       }
     },

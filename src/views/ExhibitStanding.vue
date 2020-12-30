@@ -341,6 +341,8 @@
               }
 
               h3 {
+                display: flex;
+                align-items: center;
                 writing-mode: vertical-rl;
                 font-size: 20px;
                 font-weight: normal;

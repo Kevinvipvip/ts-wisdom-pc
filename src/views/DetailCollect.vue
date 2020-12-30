@@ -81,9 +81,7 @@
     </background>
     <!--点击查看大图显示遮罩-->
     <div class="img-mask" v-if="img_mask" @click="hiddin_img">
-      <div class="img-mask-cont">
-        <img :src="look_img_url"/>
-      </div>
+      <div class="img-mask-cont" :style="'background-image: url('+look_img_url+')'"></div>
     </div>
     <!--查看更多简介遮罩显示-->
     <div class="mask" v-if="show_mask" @click="close_mask">
