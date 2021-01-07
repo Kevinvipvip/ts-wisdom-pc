@@ -159,7 +159,7 @@
 
           .img {
             width: 482px;
-            height: 346px;
+            height: 321px;
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center;
@@ -252,7 +252,6 @@
               margin-top: 40px;
               width: 100%;
               height: 283px;
-              background-size: 100%;
 
               .border {
                 padding-bottom: 10px;

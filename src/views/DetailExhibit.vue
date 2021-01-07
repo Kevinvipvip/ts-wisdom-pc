@@ -31,22 +31,27 @@
           </div>
         </div>
       </div>
-      <div class="title"><h3>精彩展品</h3></div>
-      <div class="wonderful" :class="show_more?'show-more':''">
-        <div class="wonderful-item" v-for="(item,index) in detail.collect_list" :key="'collect'+index"
-             @click="to_collect_detail(item.id)">
-          <div class="img-box">
-            <div class="img" :style="'background-image: url('+item.pic+')'"></div>
-          </div>
-          <div class="item-cont">
-            <h3 class="two-line-ellipsis">{{item.title}}</h3>
-            <p>{{item.dynasty}}/{{item.cate_name}}/{{item.origin}}</p>
+
+
+      <div class="title" v-if="detail.collect_list.length"><h3>精彩展品</h3></div>
+      <div class="wonderful-box" v-if="detail.collect_list.length">
+        <div class="wonderful" :class="show_more?'show-more':''">
+          <div class="wonderful-item" v-for="(item,index) in detail.collect_list" :key="'collect'+index"
+               @click="to_collect_detail(item.id)">
+            <div class="img-box">
+              <div class="img" :style="'background-image: url('+item.pic+')'"></div>
+            </div>
+            <div class="item-cont">
+              <h3 class="two-line-ellipsis">{{item.title}}</h3>
+              <p>{{item.dynasty}}/{{item.cate_name}}/{{item.origin}}</p>
+            </div>
           </div>
         </div>
+        <div class="btn-more" v-if="!show_more" @click="show_more=true">查看更多</div>
       </div>
-      <div class="btn-more" v-if="!show_more" @click="show_more=true">查看更多</div>
-      <div class="title"><h3>展厅内景</h3></div>
 
+
+      <div class="title" v-if="detail.pics.length>0"><h3>展厅内景</h3></div>
       <swiper class='swiper' :options="banner" v-if="detail.pics.length>0">
 
         <swiper-slide v-for="(item, index) in detail.pics" :key="index" class="swiper-item">
@@ -59,7 +64,7 @@
 
     <!--点击查看大图显示遮罩-->
     <div class="img-mask" v-if="img_mask" @click="hiddin_img">
-      <div class="img-mask-cont"  :style="'background-image: url('+look_img_url+')'"></div>
+      <div class="img-mask-cont" :style="'background-image: url('+look_img_url+')'"></div>
     </div>
 
     <div class="mask" v-if="show_mask" @click="show_mask=false">
@@ -110,6 +115,8 @@
     // },
     mounted() {
       this.id = parseInt(this.$route.query.id);
+      if (this.id === 2 || this.id === 3)
+        this.id = 1;
       this.judge_from_type(parseInt(this.$route.query.from_type));
       this.utils.ajax(this, 'api/displayDetail', { display_id: this.id }).then(res => {
         this.utils.aliyun_format(res, 'cover');

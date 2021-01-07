@@ -62,6 +62,8 @@
     },
     beforeRouteUpdate(to, from, next) {
       this.id = parseInt(to.query.id);
+      this.choice_on = this.id;
+      this.crumb_title = this.theme_list[this.choice_on - 1].title;
       this.getEduList();
       next();
     },
@@ -128,7 +130,7 @@
         let post = { tid: this.id, page: this.page, perpage: this.perpage };
         this.utils.ajax(this, 'edu/eduList', post).then(res => {
           for (let i = 0; i < res.list.length; i++) {
-            res.list[i].start_time = this.utils.date_format(new Date(res.list[i].start_time), 'yyyy/MM/dd')
+            res.list[i].start_time = this.utils.date_format(new Date(res.list[i].start_time), 'yyyy/MM/dd');
             this.utils.aliyun_format(res.list[i].pics);
           }
           this.edu_list = res.list;
@@ -162,6 +164,9 @@
         width: 14px;
         height: 10px;
         background-image: url("../assets/icon-down.png");
+        background-repeat: no-repeat;
+        background-size: 14px 10px;
+        background-position: center;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);

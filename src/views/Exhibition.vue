@@ -99,7 +99,8 @@
       },
       // 点击前往展览详情页
       to_detail(id) {
-        console.log(id);
+        // console.log(id);
+
         this.$router.push({ path: '/detail_exhibit', query: { id: id, from_type: 2 } });
       },
       // 点击跳转展览计划详情页

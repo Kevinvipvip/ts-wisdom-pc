@@ -26,17 +26,28 @@
       </div>
       <div class="title"><h3>学术委员会</h3></div>
       <div class="study-council">
-        <ul>
-          <li @click="to_committee(1)" :style="'background-image: url('+imgs[0]+')'">
-            <div class="council"><h3>唐山博物馆学术委员会章程</h3></div>
-          </li>
-          <li @click="to_committee(2)" :style="'background-image: url('+imgs[1]+')'">
-            <div class="council"><h3>唐山博物馆学术委员会工作规程</h3></div>
-          </li>
-          <li @click="to_committee(3)" :style="'background-image: url('+imgs[2]+')'">
-            <div class="council"><h3>唐山博物馆学术委员会成员名录</h3></div>
-          </li>
-        </ul>
+        <div class="new-study">
+          <div class="bg-study-img" :style="'background-image: url('+imgs[3]+')'"></div>
+          <div class="cont">
+            <p>唐山博物馆学术委员会是唐山博物馆为实现学术发展宗旨而设立的专业性学术仁导机构。</p>
+            <p>学术委员会由馆内在职高级职称职工及外聘馆外高水平专家、学者组成，</p>
+            <p>具体负责学会学术科研发展规划、工作计划的组织实施；学术科研活动的组织、指导、咨询和监督；</p>
+            <p>教育科学研究成果的鉴定、评审、推广普及工作。</p>
+            <router-link tag="div" to="/committee" class="btn-more">查看更多</router-link>
+          </div>
+          <div class="bg-study-img" :style="'background-image: url('+imgs[4]+')'"></div>
+        </div>
+        <!--<ul>-->
+        <!--<li @click="to_committee(1)" :style="'background-image: url('+imgs[0]+')'">-->
+        <!--<div class="council"><h3>唐山博物馆学术委员会章程</h3></div>-->
+        <!--</li>-->
+        <!--<li @click="to_committee(2)" :style="'background-image: url('+imgs[1]+')'">-->
+        <!--<div class="council"><h3>唐山博物馆学术委员会工作规程</h3></div>-->
+        <!--</li>-->
+        <!--<li @click="to_committee(3)" :style="'background-image: url('+imgs[2]+')'">-->
+        <!--<div class="council"><h3>唐山博物馆学术委员会成员名录</h3></div>-->
+        <!--</li>-->
+        <!--</ul>-->
       </div>
 
     </background>
@@ -51,7 +62,9 @@
         imgs: [
           this.config.aliyun + 'ts-static/pc/img-study1.png',
           this.config.aliyun + 'ts-static/pc/img-study2.png',
-          this.config.aliyun + 'ts-static/pc/img-study3.png'
+          this.config.aliyun + 'ts-static/pc/img-study3.png',
+          this.config.aliyun + 'ts-static/pc/img-study4.png',
+          this.config.aliyun + 'ts-static/pc/img-study5.png'
         ],//学术委员会图片数组
 
         article: [],//学术资讯列表
@@ -68,10 +81,10 @@
         this.$router.push({ name: 'detail_study_article', query: { id: id, from_type: 1 } })
       },
 
-      // 点击跳转学术委员会
-      to_committee(num) {
-        this.$router.push({ name: 'committee', query: { id: num } });
-      },
+      // // 点击跳转学术委员会
+      // to_committee(num) {
+      //   this.$router.push({ name: 'committee', query: { id: num } });
+      // },
 
       // 获取学术资讯列表
       getStudyArticleList() {
@@ -200,35 +213,79 @@
     .study-council {
       margin-bottom: 50px;
 
-      ul {
+      .new-study {
+        height: 321px;
+        background-color: rgb(240, 240, 232);
         display: flex;
         justify-content: space-between;
 
-        li {
-          width: 368px;
-          height: 560px;
-          background-size: 100%;
-          background-position: center;
+        .bg-study-img {
+          width: 188px;
+          height: 100%;
+          flex-shrink: 0;
           background-repeat: no-repeat;
-          cursor: pointer;
+          background-size: cover;
+          background-position: bottom;
+        }
 
-          .council {
-            width: 100px;
-            height: 100%;
-            background-color: rgba(207, 144, 58, 0.9);
-            display: flex;
-            justify-content: center;
+        .cont {
+          flex-grow: 1;
+          display: flex;
+          flex-flow: column;
+          justify-content: center;
+          align-items: center;
 
-            h3 {
-              margin-top: 40px;
-              font-size: 24px;
-              color: #ffffff;
-              font-weight: normal;
-              writing-mode: vertical-lr;
-            }
+          p {
+            text-align: center;
+            font-size: 16px;
+            line-height: 35px;
+          }
+
+          .btn-more {
+            width: 176px;
+            height: 54px;
+            background-image: url("../assets/bg-home-btn.png");
+            background-size: 100%;
+            font-size: 14px;
+            text-align: center;
+            color: #ffffff;
+            margin-top: 30px;
+            line-height: 54px;
+            cursor: pointer;
+            user-select: none;
           }
         }
       }
+
+      /*ul {*/
+      /*display: flex;*/
+      /*justify-content: space-between;*/
+
+      /*li {*/
+      /*width: 368px;*/
+      /*height: 560px;*/
+      /*background-size: 100%;*/
+      /*background-position: center;*/
+      /*background-repeat: no-repeat;*/
+      /*cursor: pointer;*/
+
+      /*.council {*/
+      /*width: 100px;*/
+      /*height: 100%;*/
+      /*background-color: rgba(207, 144, 58, 0.9);*/
+      /*display: flex;*/
+      /*justify-content: center;*/
+
+      /*h3 {*/
+      /*margin-top: 40px;*/
+      /*font-size: 24px;*/
+      /*color: #ffffff;*/
+      /*font-weight: normal;*/
+      /*writing-mode: vertical-lr;*/
+      /*}*/
+      /*}*/
+      /*}*/
+      /*}*/
     }
   }
 </style>
