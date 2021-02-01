@@ -4,7 +4,7 @@
     <background type="border">
       <crumb to="/exhibition" to_title="陈列展览"/>
       <div class="title"><h3>冀东三枝花</h3></div>
-      <div class="minit-title">《冀东三枝花》陈列由《唐山皮影》、《评剧百年》《乐亭大鼓》三部分组成。</div>
+      <div class="minit-title">《冀东三枝花》陈列由《唐山皮影》、《评剧百年》、《乐亭大鼓》三部分组成。</div>
       <!--冀东三枝花-->
       <div class="three-box">
         <div class="three-item">

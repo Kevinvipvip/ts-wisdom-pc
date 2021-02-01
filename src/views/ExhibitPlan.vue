@@ -4,7 +4,7 @@
     <background :bg_num="2">
       <crumb to="/exhibition" to_title="陈列展览"/>
       <div class="plan-list">
-        <ul>
+        <ul v-if="plan_list.length">
           <li v-for="(item,index) in plan_list" :key="'plan'+index" @click="to_plan_detail(item.id)">
             <div class="bg-new-box"></div>
             <div class="li-item">
@@ -20,6 +20,9 @@
             </div>
           </li>
         </ul>
+        <div class="nodata" v-else>
+          <span>暂无展览计划，敬请期待</span>
+        </div>
         <div class="my-page" v-if="count>perpage">
           <Page :total="count" :page-size="perpage" @on-change="click_page"/>
         </div>

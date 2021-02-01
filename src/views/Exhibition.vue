@@ -54,9 +54,13 @@
 
       <!--展览计划-->
       <div class="title"><h3>展览计划</h3></div>
-      <div class="plan-img" :style="'background-image: url('+plan.pic+')'" @click="to_plan_detail(plan.id)">
+      <div class="plan-img" v-if="plan.not_data" :style="'background-image: url('+plan.pic+')'"
+           @click="to_plan_detail(plan.id)">
         <h3><p>{{plan.title}}</p>
           <p>{{plan.create_time}}</p></h3>
+      </div>
+      <div class="nodata" v-else>
+        <span>暂无展览计划，敬请期待</span>
       </div>
       <div class="more">
         <router-link to="/exhibit_plan">查看更多</router-link>
@@ -138,9 +142,13 @@
       // 获取展览计划
       getDisplayArticleList() {
         this.utils.ajax(this, 'api/displayArticleList').then(res => {
-          this.utils.aliyun_format(res.list);
-          res.list[0].create_time = this.utils.date_format(new Date(res.list[0].create_time), 'yyyy/MM/dd');
-          this.plan = res.list[0];
+          if (res.list.length === 0) {
+            this.plan.not_data = false;
+          } else {
+            this.utils.aliyun_format(res.list);
+            res.list[0].create_time = this.utils.date_format(new Date(res.list[0].create_time), 'yyyy/MM/dd');
+            this.plan = res.list[0];
+          }
         });
       }
     }

@@ -42,21 +42,31 @@
         <p>精选展览</p>
         <span>Selected Exhibitions</span>
       </div>
-      <div class="home2-swiper">
-        <swiper class='h-swiper' :options="home2" v-if="select_data.length>1">
+      <div class="home2-cont">
+        <router-link tag="div" class="home2-item" :to="{path:'/detail_exhibit',query:{id:item.id,from_type:1}}"
+                     v-for="(item, index) in select_data" :key="index">
+          <div class="img-box">
+            <div class="img" :style="'background-image: url('+item.cover+')'"></div>
+          </div>
+          <h3 class="one-line-ellipsis">{{item.title}}</h3>
 
-          <swiper-slide v-for="(item, index) in select_data" :key="index" class="h-swiper-item" :id="item.id">
-            <div class="img-box">
-              <div class="img" :style="'background-image: url('+item.cover+')'"></div>
-            </div>
-            <h3 class="one-line-ellipsis">{{item.title}}</h3>
-          </swiper-slide>
+        </router-link>
+      </div>
+      <!--<div class="home2-swiper">-->
+      <!--<swiper class='h-swiper' :options="home2" v-if="select_data.length>1">-->
 
-        </swiper>
-      </div>
-      <div class="next-page" :class="show_swiper_next_page?'show':''" @click="swiper_next">
-        <img src="../assets/icon-right.png"/>
-      </div>
+      <!--<swiper-slide v-for="(item, index) in select_data" :key="index" class="h-swiper-item" :id="item.id">-->
+      <!--<div class="img-box">-->
+      <!--<div class="img" :style="'background-image: url('+item.cover+')'"></div>-->
+      <!--</div>-->
+      <!--<h3 class="one-line-ellipsis">{{item.title}}</h3>-->
+      <!--</swiper-slide>-->
+
+      <!--</swiper>-->
+      <!--</div>-->
+      <!--<div class="next-page" :class="show_swiper_next_page?'show':''" @click="swiper_next">-->
+      <!--<img src="../assets/icon-right.png"/>-->
+      <!--</div>-->
     </div>
 
 
@@ -86,7 +96,7 @@
   import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
   import 'swiper/css/swiper.css'
 
-  var _self, _h_swiper;
+  // var _self, _h_swiper;
   export default {
     name: 'Home', components: {
       'swiper': Swiper,
@@ -117,41 +127,41 @@
         code_img: this.config.aliyun + 'ts-static/pc/code-wx.jpg',//公众号二维码在阿里云的图片链接
         notice: '',//参观须知
 
-        home2: {
-          slidesPerView: "auto",
-          spaceBetween: 24,
-          resistanceRatio: 0,
-          on: {
-            init() {
-              _h_swiper = this;
-            },
-            tap() {
-              let id = this.clickedSlide.getAttribute('id');
-              _self.$router.push({ name: 'detail_exhibit', query: { id: id, from_type: 1 } });
-              console.log(id);
-            },
-            reachEnd() {
-              if (_self.show_swiper_next_page) {
-                _self.show_swiper_next_page = false;
-              }
-            },
-            slideChangeTransitionEnd() {
-              if (!_self.show_swiper_next_page) {
-                if ((_self.select_data.length - 3) === this.realIndex) {
-                  _self.show_swiper_next_page = true;
-                }
-              }
-            }
-          }
-        },//精选预览轮播图
-        show_swiper_next_page: true,
+        // home2: {
+        //   slidesPerView: "auto",
+        //   spaceBetween: 24,
+        //   resistanceRatio: 0,
+        //   on: {
+        //     init() {
+        //       _h_swiper = this;
+        //     },
+        //     tap() {
+        //       let id = this.clickedSlide.getAttribute('id');
+        //       _self.$router.push({ name: 'detail_exhibit', query: { id: id, from_type: 1 } });
+        //       console.log(id);
+        //     },
+        //     reachEnd() {
+        //       if (_self.show_swiper_next_page) {
+        //         _self.show_swiper_next_page = false;
+        //       }
+        //     },
+        //     slideChangeTransitionEnd() {
+        //       if (!_self.show_swiper_next_page) {
+        //         if ((_self.select_data.length - 3) === this.realIndex) {
+        //           _self.show_swiper_next_page = true;
+        //         }
+        //       }
+        //     }
+        //   }
+        // },//精选预览轮播图
+        // show_swiper_next_page: true,
         select_data: [],//精选预览数据
 
         news: [],//新闻数据
       }
     },
     mounted() {
-      _self = this;
+      // _self = this;
       this.getSlideList();
       this.getDisplayList();
       this.getArticleList();
@@ -159,9 +169,9 @@
     },
     methods: {
       // 点击精选展览轮播图下一页
-      swiper_next() {
-        _h_swiper.slideNext();
-      },
+      // swiper_next() {
+      //   _h_swiper.slideNext();
+      // },
 
       // 点击进入新闻公告详情
       to_news_detail(id) {
@@ -198,7 +208,7 @@
 
       // 获取精选展览数据内容
       getDisplayList() {
-        this.utils.ajax(this, 'api/displayList', { recommend:1, page: 1, perpage: 3 }).then(res => {
+        this.utils.ajax(this, 'api/displayList', { recommend: 1, page: 1, perpage: 3 }).then(res => {
           this.utils.aliyun_format(res.list, 'cover');
           this.select_data = res.list;
         });
@@ -392,84 +402,132 @@
         }
       }
 
-      .home2-swiper {
+      .home2-cont {
         flex-grow: 1;
         width: calc(100% - 109px);
         margin: 12px 0;
+        display: flex;
+        justify-content: space-between;
 
-        .h-swiper {
+        .home2-item {
           height: 100%;
+          width: calc(33.33333% - 12px);
+          background-color: #c88e45;
+          cursor: pointer;
 
-          .h-swiper-item {
-            height: 100%;
-            width: 500px;
-            background-color: #c88e45;
-            cursor: pointer;
+          .img-box {
+            width: 100%;
+            height: 275px;
+            overflow: hidden;
 
-            .img-box {
+            .img {
+              transition: 0.5s;
               width: 100%;
-              height: 275px;
-              overflow: hidden;
+              height: 100%;
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: cover;
+            }
+          }
 
+          h3 {
+            box-sizing: border-box;
+            padding: 0 15px;
+            font-weight: normal;
+            font-size: 16px;
+            color: #ffffff;
+            text-align: center;
+            line-height: 60px;
+          }
+
+          &:hover {
+            .img-box {
               .img {
-                transition: 0.5s;
-                width: 100%;
-                height: 100%;
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: cover;
-              }
-            }
-
-            h3 {
-              box-sizing: border-box;
-              padding: 0 15px;
-              font-weight: normal;
-              font-size: 16px;
-              color: #ffffff;
-              text-align: center;
-              line-height: 60px;
-            }
-
-            &:hover {
-              .img-box {
-                .img {
-                  transform: scale(1.1);
-                }
+                transform: scale(1.1);
               }
             }
           }
         }
       }
 
-      .next-page {
-        cursor: pointer;
-        position: absolute;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
-        width: 48px;
-        height: 48px;
-        background-color: #e8e2ca;
-        border: solid 1px #786f63;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: 0.5s;
-        opacity: 0;
-        z-index: -9;
-        user-select: none;
+      /*.home2-swiper {*/
+      /*flex-grow: 1;*/
+      /*width: calc(100% - 109px);*/
+      /*margin: 12px 0;*/
 
-        &.show {
-          opacity: 1;
-          z-index: 9;
-        }
+      /*.h-swiper {*/
+      /*height: 100%;*/
 
-        img {
-          width: 10px;
-          height: 14px;
-        }
-      }
+      /*.h-swiper-item {*/
+      /*height: 100%;*/
+      /*width: 500px;*/
+      /*background-color: #c88e45;*/
+      /*cursor: pointer;*/
+
+      /*.img-box {*/
+      /*width: 100%;*/
+      /*height: 275px;*/
+      /*overflow: hidden;*/
+
+      /*.img {*/
+      /*transition: 0.5s;*/
+      /*width: 100%;*/
+      /*height: 100%;*/
+      /*background-repeat: no-repeat;*/
+      /*background-position: center;*/
+      /*background-size: cover;*/
+      /*}*/
+      /*}*/
+
+      /*h3 {*/
+      /*box-sizing: border-box;*/
+      /*padding: 0 15px;*/
+      /*font-weight: normal;*/
+      /*font-size: 16px;*/
+      /*color: #ffffff;*/
+      /*text-align: center;*/
+      /*line-height: 60px;*/
+      /*}*/
+
+      /*&:hover {*/
+      /*.img-box {*/
+      /*.img {*/
+      /*transform: scale(1.1);*/
+      /*}*/
+      /*}*/
+      /*}*/
+      /*}*/
+      /*}*/
+      /*}*/
+
+      /*.next-page {*/
+      /*cursor: pointer;*/
+      /*position: absolute;*/
+      /*top: 50%;*/
+      /*right: 0;*/
+      /*//transform: translateY(-50%);*/
+      /*width: 48px;*/
+      /*height: 48px;*/
+      /*background-color: #e8e2ca;*/
+      /*border: solid 1px #786f63;*/
+      /*display: flex;*/
+      /*justify-content: center;*/
+      /*align-items: center;*/
+      /*transition: 0.5s;*/
+      /*opacity: 0;*/
+      /*//z-index: -9;*/
+      /*user-select: none;*/
+
+      /*&.show {*/
+      /*opacity: 1;*/
+      /*z-index: 9;*/
+      /*}*/
+
+      /*img {*/
+      /*width: 10px;*/
+      /*height: 14px;*/
+      /*}*/
+      /*}*/
     }
 
     .home3 {
