@@ -18,7 +18,7 @@ const routes = [
     meta: { title: '活动预约详情', },
     path: '/detail_active',
     name: 'detail_active',
-    component: () => import('../views/DetailActive.vue')//活动预约列表页
+    component: () => import('../views/DetailActive.vue')//活动预约详情页
   }, {
     meta: { title: '讲解预约', },
     path: '/explain',

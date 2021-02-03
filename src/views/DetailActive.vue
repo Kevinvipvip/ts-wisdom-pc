@@ -18,7 +18,8 @@
           </div>
           <div class="now_subscribe">
             <div class="btn">立即预约
-              <div class="code"><img :src="code"/>
+              <div class="code">
+                <div class="qrCode" ref="subscribe_qrcode"></div>
                 <p>微信扫描二维码预约</p></div>
             </div>
             <div class="share">
@@ -43,6 +44,7 @@
 </template>
 
 <script>
+  import QRCode from 'qrcodejs2'
   export default {
     data() {
       return {
@@ -62,6 +64,9 @@
       this.from_type = parseInt(this.$route.query.from_type);
       this.getActivityDetail();
       this.utils.initCode(this);
+      this.initSubscribeCode();
+      this.subscribe_qrcode.clear();
+      this.subscribe_qrcode.makeCode(this.config.url + 'wap/#/detail_activity?id=' + this.id);
       window.addEventListener('click', () => {
         this.show_share = false;
       });
@@ -79,6 +84,18 @@
     //   });
     // },
     methods: {
+      // 预约二维码
+      initSubscribeCode() {
+        this.subscribe_qrcode = new QRCode(this.$refs.subscribe_qrcode, {
+          text: '',
+          width: 163,
+          height: 163,
+          colorDark: '#333333', // 二维码颜色
+          colorLight: '#ffffff', // 二维码背景色
+          correctLevel: QRCode.CorrectLevel.L // 容错率，L/M/H
+        });
+      },
+
       // 分享
       share(type, title) {
         if (type === 2) {
@@ -88,7 +105,7 @@
           this.share_title = title;
           this.show_share = true;
           this.qrcode.clear();
-          this.qrcode.makeCode(this.config.url + 'wap/#/new-detail?id=' + this.detail.id);
+          this.qrcode.makeCode(this.config.url + 'wap/#/detail_activity?id=' + this.detail.id);
         }
       },
 
@@ -196,9 +213,10 @@
                 border-bottom: 10px solid transparent;
               }
 
-              img {
+              .qrCode {
                 width: 163px;
                 height: 163px;
+                flex-shrink: 0;
               }
 
               p {

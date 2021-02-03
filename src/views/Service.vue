@@ -13,7 +13,7 @@
           <p>周二至周日 <span>9：00开馆 — 16:30停止入馆 — 17：00闭馆</span></p>
           <p>周一闭馆（法定节假日除外）</p>
           <div class="code"><img :src="code"/></div>
-          <p class="tip">微信扫二维码即可预约</p>
+          <p class="tip">扫描图片进入小程序 搜索唐山博物馆</p>
         </div>
         <div class="item bg_color2 wide explain">
           <div class="title new-title"><h3>讲解预约</h3></div>
@@ -69,7 +69,7 @@
     data() {
       return {
         notice: '',//参观须知
-        code: this.config.aliyun + 'ts-static/pc/code-ticket.png',//门票预约的手机网页二维码
+        code: this.config.aliyun + 'ts-static/pc/code-ticket.jpg',//门票预约的手机网页二维码
 
         active: [],//活动预约列表
 

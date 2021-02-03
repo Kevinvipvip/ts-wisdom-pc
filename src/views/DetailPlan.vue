@@ -103,7 +103,7 @@
           this.share_title = title;
           this.show_share = true;
           this.qrcode.clear();
-          this.qrcode.makeCode(this.config.url + 'wap/#/new-detail?id=' + this.detail.id);
+          this.qrcode.makeCode(this.config.url + 'wap/#/detail_plan?id=' + this.detail.id);
         }
       },
 
